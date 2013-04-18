@@ -1,0 +1,24 @@
+---
+cloud_controller_uri: <%= node[:cloud_controller][:service_api_uri] %>
+service:
+  name: hadoop
+  version: "<%= node[:hadoop][:default_version] %>"
+  description: 'Hadoop datastore'
+  plans: ['free']
+  default_plan: 'free'
+  tags: ['hadoop']
+  timeout: <%= node[:hadoop_gateway][:service][:timeout] %>
+  supported_versions: <%= "['#{node[:hadoop][:supported_versions].keys.join("', '")}']"%>
+  version_aliases:
+<% node[:hadoop][:version_aliases].each do |a, v| %>
+    "<%= a %>": "<%= v %>"
+<% end %>
+ip_route: localhost
+host: <%= node[:hadoop][:host] %>
+index: <%= node[:hadoop_node][:index] %>
+token: <%= node[:hadoop_node][:token] %>
+logging:
+  level: debug
+mbus: nats://<%= node[:nats_server][:user] %>:<%= node[:nats_server][:password] %>@<%= node[:nats_server][:host] %>:<%= node[:nats_server][:port] %>/
+pid: /var/vcap/sys/run/hadoop_service.pid
+node_timeout: <%= node[:hadoop_gateway][:node_timeout] %>

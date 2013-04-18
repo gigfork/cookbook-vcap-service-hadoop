@@ -1,0 +1,24 @@
+---
+capacity: <%= node[:hadoop_node][:capacity] %>
+plan: free
+local_db: sqlite3:/var/vcap/services/hadoop/hadoop_node.db
+mbus: nats://<%= node[:nats_server][:user] %>:<%= node[:nats_server][:password] %>@<%= node[:nats_server][:host] %>:<%= node[:nats_server][:port] %>/
+index: <%= node[:hadoop_node][:index] %>
+base_dir: /var/vcap/services/hadoop/instances
+logging:
+  level: debug
+pid: /var/vcap/sys/run/hadoop_node.pid
+node_id: <%= "hadoop_node_#{node[:hadoop_node][:index]}" %>
+default_version: "<%= node[:hadoop][:default_version] %>"
+supported_versions: <%= "['#{node[:hadoop][:supported_versions].keys.join("', '")}']"%>
+hostname: <%= node[:hadoop][:host] %>
+op_time_limit: <%= node[:hadoop_node][:op_time_limit] %>
+host: <%= node[:hadoop][:host] %>
+port_range:
+  first: 5000
+  last: 5100
+hadoop:
+  java_home: <%= node[:java6][:java_home] %>
+  hostname: <%= node[:hadoop][:host] %>
+  instance_limit: <%= node[:hadoop_node][:capacity] %>
+  runtime_path: <%= node[:hadoop][:path] %>
