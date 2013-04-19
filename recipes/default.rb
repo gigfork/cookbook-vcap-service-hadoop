@@ -39,7 +39,7 @@ node[:hadoop][:supported_versions].each do |version, install_version|
    cwd ENV["HOME"]
    user node[:deployment][:user]
    code <<-EOH
-  echo "export JAVA_HOME=#{node[:java6][:java_home]}" >> .bash_profile
+  echo "export JAVA_HOME=#{node[:java6][:java_home]}" >> .profile
   EOH
   end
 
