@@ -13,7 +13,6 @@ default_version: "<%= node[:hadoop][:default_version] %>"
 supported_versions: <%= "['#{node[:hadoop][:supported_versions].keys.join("', '")}']"%>
 hostname: <%= node[:hadoop][:host] %>
 op_time_limit: <%= node[:hadoop_node][:op_time_limit] %>
-host: <%= node[:hadoop][:host] %>
 port_range:
   first: 5000
   last: 5100
